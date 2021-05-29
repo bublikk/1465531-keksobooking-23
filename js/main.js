@@ -7,7 +7,7 @@ export const getRandomInteger = (min, max) => min >= 0 && max > min ? Math.floor
 export const getRandomFloat = (min, max, point) => {
   if (min >= 0 && max > min && point > 0) {
     const rand = min + Math.random() * (max - min);
-    return rand.toFixed(point);
+    return +rand.toFixed(point);
   }
   return -1;
 };

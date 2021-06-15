@@ -97,16 +97,14 @@ const getNewArrayElements = (elements) => {
 };
 
 for (let i = AVATAR_MIN; i <= AVATAR_MAX; i++) {
-  const str = `img/avatars/user${i < AVATAR_MAX ? `0${i}` : `${i}`}.png `;
+  const str = `img/avatars/user${i < AVATAR_MAX ? '0' : ''}${i}.png `;
   arrayOfAvatars.push(str);
 }
 
-const generateLocation = () => {
-  return {
-    lat: getRandomPositiveFloat(LAT_MIN, LAT_MAX, DECIMAL_POINT),
-    lng: getRandomPositiveFloat(LNG_MIN, LNG_MAX, DECIMAL_POINT),
-  };
-};
+const generateLocation = () => ({
+  lat: getRandomPositiveFloat(LAT_MIN, LAT_MAX, DECIMAL_POINT),
+  lng: getRandomPositiveFloat(LNG_MIN, LNG_MAX, DECIMAL_POINT),
+});
 
 const generateOffer = () => {
   const coordinates = generateLocation();

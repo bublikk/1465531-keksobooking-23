@@ -1,6 +1,6 @@
 import {getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement} from './util.js';
 
-const ADVERT_COUNT = 10;
+// const ADVERT_COUNT = 10;
 const AVATAR_MIN = 1;
 const AVATAR_MAX = 10;
 const LAT_MIN = 35.65000;
@@ -12,13 +12,13 @@ const TITLE = 'Милая, уютная квартирка в центре То�
 const DESCRIPTION = 'Вашему вниманию представляется современная уютная квартира в престижном районе Токио';
 const COST_MIN = 800;
 const COST_MAX = 1200;
-const TYPES = [
-  'palace',
-  'flat',
-  'house',
-  'bungalow',
-  'hotel',
-];
+const TYPES = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+  hotel: 'Отель',
+};
 const CHECKINS = [
   '12:00',
   '13:00',
@@ -44,11 +44,9 @@ const PHOTOS = [
 ];
 
 const arrayOfAvatars = [];
+const typesValue = Object.values(TYPES);
 
-const getNewArrayElements = (elements) => {
-  const arrayOfElements = elements.slice(getRandomPositiveInteger(0, elements.length - 1));
-  return arrayOfElements;
-};
+const getNewArrayElements = (elements) => elements.slice(getRandomPositiveInteger(0, elements.length - 1));
 
 for (let i = AVATAR_MIN; i <= AVATAR_MAX; i++) {
   const str = `img/avatars/user${i < AVATAR_MAX ? '0' : ''}${i}.png `;
@@ -71,7 +69,7 @@ const generateOffer = () => {
       title: TITLE,
       address: `${coordinates.lat}, ${coordinates.lng}`,
       price: getRandomPositiveInteger(COST_MIN, COST_MAX),
-      type: getRandomArrayElement(TYPES),
+      type: getRandomArrayElement(typesValue),
       rooms: getRandomPositiveInteger(1, 5),
       guests: getRandomPositiveInteger(1, 10),
       checkin: getRandomArrayElement(CHECKINS),
@@ -87,6 +85,6 @@ const generateOffer = () => {
   };
 };
 
-new Array(ADVERT_COUNT).fill().map(() => generateOffer());
-// const offers = new Array(ADVERT_COUNT).fill().map(() => generateOffer());
-// export {offers};
+const generateOffers = () => new Array(1).fill(null).map(() => generateOffer());
+
+export {generateOffers};

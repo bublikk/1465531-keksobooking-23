@@ -1,6 +1,6 @@
 import {getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement} from './util.js';
 
-// const ADVERT_COUNT = 10;
+const ADVERT_COUNT = 1;
 const AVATAR_MIN = 1;
 const AVATAR_MAX = 10;
 const LAT_MIN = 35.65000;
@@ -44,7 +44,6 @@ const PHOTOS = [
 ];
 
 const arrayOfAvatars = [];
-const typesValue = Object.values(TYPES);
 
 const getNewArrayElements = (elements) => elements.slice(getRandomPositiveInteger(0, elements.length - 1));
 
@@ -69,7 +68,7 @@ const generateOffer = () => {
       title: TITLE,
       address: `${coordinates.lat}, ${coordinates.lng}`,
       price: getRandomPositiveInteger(COST_MIN, COST_MAX),
-      type: getRandomArrayElement(typesValue),
+      type: getRandomArrayElement(Object.keys(TYPES)),
       rooms: getRandomPositiveInteger(1, 5),
       guests: getRandomPositiveInteger(1, 10),
       checkin: getRandomArrayElement(CHECKINS),
@@ -85,6 +84,6 @@ const generateOffer = () => {
   };
 };
 
-const generateOffers = () => new Array(1).fill(null).map(() => generateOffer());
+const generateOffers = () => new Array(ADVERT_COUNT).fill(null).map(() => generateOffer());
 
-export {generateOffers};
+export {generateOffers, TYPES};

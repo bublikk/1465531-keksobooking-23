@@ -1,85 +1,91 @@
-import {generateOffers} from './mock.js';
+import {generateOffers, TYPES} from './mock.js';
 
-const mapCanvas = document.querySelector('#map-canvas');
+const mapCanvasElement = document.querySelector('#map-canvas');
 const similarOfferTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-const similarOffers = generateOffers();
-
 const similarListFragment = document.createDocumentFragment();
 
-similarOffers.forEach(({author, offer}) => {
-  const {avatar} = author;
-  const {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos} = offer;
+const similarOffers = generateOffers();
 
-  const offerElement = similarOfferTemplate.cloneNode(true);
+const renderList = (list) => {
+  list.forEach(({author, offer}) => {
+    const {avatar} = author;
+    const {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos} = offer;
 
-  avatar
-    ? offerElement.querySelector('.popup__avatar').src = avatar
-    : offerElement.querySelector('.popup__avatar').classList.add('hidden');
+    const offerElement = similarOfferTemplate.cloneNode(true);
 
-  title
-    ? offerElement.querySelector('.popup__title').textContent = title
-    : offerElement.querySelector('.popup__title').classList.add('hidden');
+    avatar
+      ? offerElement.querySelector('.popup__avatar').src = avatar
+      : offerElement.querySelector('.popup__avatar').classList.add('hidden');
 
-  address
-    ? offerElement.querySelector('.popup__text--address').textContent = address
-    : offerElement.querySelector('.popup__text--address').classList.add('hidden');
+    title
+      ? offerElement.querySelector('.popup__title').textContent = title
+      : offerElement.querySelector('.popup__title').classList.add('hidden');
 
-  price
-    ? offerElement.querySelector('.popup__text--price').innerHTML = `${price} <span>₽/ночь</span>`
-    : offerElement.querySelector('.popup__text--price').classList.add('hidden');
+    address
+      ? offerElement.querySelector('.popup__text--address').textContent = address
+      : offerElement.querySelector('.popup__text--address').classList.add('hidden');
 
-  type
-    ? offerElement.querySelector('.popup__type').textContent = type
-    : offerElement.querySelector('.popup__type').classList.add('hidden');
+    price
+      ? offerElement.querySelector('.popup__text--price').innerHTML = `${price} <span>₽/ночь</span>`
+      : offerElement.querySelector('.popup__text--price').classList.add('hidden');
 
-  rooms && guests
-    ? offerElement.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей`
-    : offerElement.querySelector('.popup__text--capacity').classList.add('hidden');
+    type
+      ? offerElement.querySelector('.popup__type').textContent = TYPES[type]
+      : offerElement.querySelector('.popup__type').classList.add('hidden');
 
-  checkin && checkout
-    ? offerElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`
-    : offerElement.querySelector('.popup__text--time').classList.add('hidden');
+    rooms && guests
+      ? offerElement.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей`
+      : offerElement.querySelector('.popup__text--capacity').classList.add('hidden');
 
-  description
-    ? offerElement.querySelector('.popup__description').textContent = description
-    : offerElement.querySelector('.popup__description').classList.add('hidden');
+    checkin && checkout
+      ? offerElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`
+      : offerElement.querySelector('.popup__text--time').classList.add('hidden');
 
-  if (photos) {
-    const photoList = offerElement.querySelector('.popup__photos');
-    photoList.innerHTML = '';
+    description
+      ? offerElement.querySelector('.popup__description').textContent = description
+      : offerElement.querySelector('.popup__description').classList.add('hidden');
 
-    const copyOfferPhotos = photos.slice();
+    if (photos) {
+      const photoList = offerElement.querySelector('.popup__photos');
+      const photoItem = photoList.querySelector('.popup__photo');
+      const copyOfferPhotos = photos.slice();
 
-    copyOfferPhotos.forEach((photo) => {
-      photoList.insertAdjacentHTML('beforeend', `
-        <img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">
-        </img>
-      `);
-    });
-  } else {
-    offerElement.querySelector('.popup__photos').classList.add('hidden');
-  }
+      copyOfferPhotos.forEach((photo) => {
+        const photoElement = photoItem.cloneNode(true);
+        photoElement.src = photo;
+        photoList.appendChild(photoElement);
+      });
 
-  if (features) {
-    const featuresList = offerElement.querySelector('.popup__features');
-    featuresList.innerHTML = '';
+      photoList.children[0].remove();
+    } else {
+      offerElement.querySelector('.popup__photos').classList.add('hidden');
+    }
 
-    const copyFeaturesPhotos = features.slice();
+    if (features) {
+      const featureList = offerElement.querySelector('.popup__features');
+      const featureListElements = featureList.querySelectorAll('.popup__feature');
+      const copyOfferFeatures = features.slice();
 
-    copyFeaturesPhotos.forEach((feature) => {
-      featuresList.insertAdjacentHTML('beforeend', `
-        <li class="popup__feature popup__feature--${feature}">
-        </li>
-      `);
-    });
-  } else {
-    offerElement.querySelector('.popup__features').classList.add('hidden');
-  }
+      const modifiers = copyOfferFeatures.map((feature) => `popup__feature--${feature}`);
 
-  similarListFragment.appendChild(offerElement);
-});
+      featureListElements.forEach((item) => {
+        const modifier = item.classList[1];
 
-mapCanvas.appendChild(similarListFragment);
+        if (!modifiers.includes(modifier)) {
+          item.remove();
+        }
+      });
+    } else {
+      offerElement.querySelector('.popup__features').classList.add('hidden');
+    }
+
+    similarListFragment.appendChild(offerElement);
+  });
+
+  mapCanvasElement.appendChild(similarListFragment);
+};
+
+renderList(similarOffers);

@@ -1,6 +1,5 @@
 import {getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement} from './util.js';
 
-const ADVERT_COUNT = 1;
 const AVATAR_MIN = 1;
 const AVATAR_MAX = 10;
 const LAT_MIN = 35.65000;
@@ -84,6 +83,6 @@ const generateOffer = () => {
   };
 };
 
-const generateOffers = () => new Array(ADVERT_COUNT).fill(null).map(() => generateOffer());
+const generateOffers = (count) => new Array(count).fill(null).map(() => generateOffer());
 
 export {generateOffers, TYPES};

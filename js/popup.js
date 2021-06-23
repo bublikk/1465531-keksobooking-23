@@ -1,13 +1,13 @@
 import {generateOffers, TYPES} from './mock.js';
 
+const ADVERT_COUNT = 1;
+
 const mapCanvasElement = document.querySelector('#map-canvas');
 const similarOfferTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
 const similarListFragment = document.createDocumentFragment();
-
-const similarOffers = generateOffers();
 
 const renderList = (list) => {
   list.forEach(({author, offer}) => {
@@ -87,5 +87,7 @@ const renderList = (list) => {
 
   mapCanvasElement.appendChild(similarListFragment);
 };
+
+const similarOffers = generateOffers(ADVERT_COUNT);
 
 renderList(similarOffers);

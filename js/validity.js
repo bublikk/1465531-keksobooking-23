@@ -1,5 +1,6 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
+const MAX_PRICE = 1000000;
 
 const titleInput = document.querySelector('#title');
 const priceInput = document.querySelector('#price');
@@ -22,10 +23,9 @@ titleInput.addEventListener('input', () => {
 
 priceInput.addEventListener('input', () => {
   const priceValue = priceInput.value;
-  const priceMax = priceInput.max;
 
-  if (priceValue > priceMax) {
-    priceInput.setCustomValidity(`Цена не должна превышать ${priceMax}.`);
+  if (priceValue > MAX_PRICE) {
+    priceInput.setCustomValidity(`Цена не должна превышать ${MAX_PRICE}.`);
   } else {
     priceInput.setCustomValidity('');
   }

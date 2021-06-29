@@ -4,6 +4,8 @@ const MAX_PRICE = 1000000;
 
 const titleInput = document.querySelector('#title');
 const priceInput = document.querySelector('#price');
+const roomNumberSelect = document.querySelector('#room_number');
+const capacitySelect = document.querySelector('#capacity');
 
 titleInput.addEventListener('input', () => {
   const titleValueLength = titleInput.value.length;
@@ -30,9 +32,6 @@ priceInput.addEventListener('input', () => {
 
   priceInput.reportValidity();
 });
-
-const roomNumberSelect = document.querySelector('#room_number');
-const capacitySelect = document.querySelector('#capacity');
 
 const checkValidCapacity = () => {
   if (roomNumberSelect.options[0].selected && !capacitySelect.options[2].selected) {

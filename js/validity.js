@@ -1,6 +1,5 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-const MAX_PRICE = 1000000;
 
 const titleInput = document.querySelector('#title');
 const priceInput = document.querySelector('#price');
@@ -23,9 +22,10 @@ titleInput.addEventListener('input', () => {
 
 priceInput.addEventListener('input', () => {
   const priceValue = priceInput.value;
+  const priceMax = priceInput.max;
 
-  if (priceValue > MAX_PRICE) {
-    priceInput.setCustomValidity(`Цена не должна превышать ${MAX_PRICE}.`);
+  if (priceValue > priceMax) {
+    priceInput.setCustomValidity(`Цена не должна превышать ${priceMax}.`);
   } else {
     priceInput.setCustomValidity('');
   }
@@ -35,13 +35,13 @@ priceInput.addEventListener('input', () => {
 
 const checkValidCapacity = () => {
   if (roomNumberSelect.options[0].selected && !capacitySelect.options[2].selected) {
-    capacitySelect.setCustomValidity('«для 1 гостя»');
+    capacitySelect.setCustomValidity('Следует выбрать «для 1 гостя»');
   } else if (roomNumberSelect.options[1].selected && !capacitySelect.options[1].selected && !capacitySelect.options[2].selected) {
-    capacitySelect.setCustomValidity('«для 2 гостей» или «для 1 гостя»');
+    capacitySelect.setCustomValidity('Следует выбрать «для 2 гостей» или «для 1 гостя»');
   } else if (roomNumberSelect.options[2].selected && capacitySelect.options[3].selected) {
-    capacitySelect.setCustomValidity('«для 3 гостей», «для 2 гостей» или «для 1 гостя»');
+    capacitySelect.setCustomValidity('Следует выбрать «для 3 гостей», «для 2 гостей» или «для 1 гостя»');
   } else if (roomNumberSelect.options[3].selected && !capacitySelect.options[3].selected) {
-    capacitySelect.setCustomValidity('«не для гостей»');
+    capacitySelect.setCustomValidity('Следует выбрать «не для гостей»');
   } else {
     capacitySelect.setCustomValidity('');
   }

@@ -33,7 +33,7 @@ const renderList = (list) => {
       : offerElement.querySelector('.popup__text--price').classList.add('hidden');
 
     type
-      ? offerElement.querySelector('.popup__type').textContent = TYPES[type]
+      ? offerElement.querySelector('.popup__type').textContent = TYPES[type].name
       : offerElement.querySelector('.popup__type').classList.add('hidden');
 
     rooms && guests

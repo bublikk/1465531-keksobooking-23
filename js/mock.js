@@ -12,11 +12,26 @@ const DESCRIPTION = 'Вашему вниманию представляется 
 const COST_MIN = 800;
 const COST_MAX = 1200;
 const TYPES = {
-  palace: 'Дворец',
-  flat: 'Квартира',
-  house: 'Дом',
-  bungalow: 'Бунгало',
-  hotel: 'Отель',
+  palace: {
+    name: 'Дворец',
+    minPrice: 10000,
+  },
+  flat: {
+    name: 'Квартира',
+    minPrice: 1000,
+  },
+  house: {
+    name: 'Дом',
+    minPrice: 5000,
+  },
+  bungalow: {
+    name: 'Бунгало',
+    minPrice: 0,
+  },
+  hotel: {
+    name: 'Отель',
+    minPrice: 3000,
+  },
 };
 const CHECKINS = [
   '12:00',

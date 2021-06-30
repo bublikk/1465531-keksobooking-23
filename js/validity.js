@@ -4,6 +4,7 @@ const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
 
+const offerForm = document.querySelector('.ad-form');
 const titleInput = document.querySelector('#title');
 const priceInput = document.querySelector('#price');
 const roomNumberSelect = document.querySelector('#room_number');
@@ -26,17 +27,19 @@ titleInput.addEventListener('input', () => {
   titleInput.reportValidity();
 });
 
-priceInput.addEventListener('input', () => {
-  const priceValue = priceInput.value;
-
-  if (priceValue > MAX_PRICE) {
+const checkPrice = () => {
+  if (priceInput.value < priceInput.min) {
+    priceInput.setCustomValidity(`Цена не может быть меньше ${priceInput.min}.`);
+  } else if (priceInput.value > MAX_PRICE) {
     priceInput.setCustomValidity(`Цена не должна превышать ${MAX_PRICE}.`);
   } else {
     priceInput.setCustomValidity('');
   }
 
   priceInput.reportValidity();
-});
+};
+
+priceInput.addEventListener('input', checkPrice);
 
 const checkValidCapacity = () => {
   if (roomNumberSelect.options[0].selected && !capacitySelect.options[2].selected) {
@@ -69,10 +72,7 @@ roomNumberSelect.addEventListener('change', () => {
 const checkTypeOfHouses = () => {
   priceInput.setAttribute('min', TYPES[typeSelect.value].minPrice);
   priceInput.setAttribute('placeholder', TYPES[typeSelect.value].minPrice);
-  priceInput.setCustomValidity(`Цена не может быть меньше ${TYPES[typeSelect.value].minPrice}.`);
 };
-
-checkTypeOfHouses();
 
 typeSelect.addEventListener('change', () => {
   checkTypeOfHouses();
@@ -81,11 +81,7 @@ typeSelect.addEventListener('change', () => {
 });
 
 const changeSelectValue = (primarySelect, secondarySelect) => {
-  for (let i = 0; i < primarySelect.options.length; i++) {
-    if (primarySelect.options[i].selected) {
-      secondarySelect.value = primarySelect.value;
-    }
-  }
+  secondarySelect.value = primarySelect.value;
 };
 
 timeinSelect.addEventListener('change', () => {
@@ -99,3 +95,5 @@ timeoutSelect.addEventListener('change', () => {
 
   timeoutSelect.reportValidity();
 });
+
+offerForm.addEventListener('submit', checkPrice);

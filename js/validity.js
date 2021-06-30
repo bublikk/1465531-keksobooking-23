@@ -1,11 +1,8 @@
+import {TYPES} from './mock.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
-const BUNGALOW_MIN_PRICE = 0;
-const FLAT_MIN_PRICE = 1000;
-const HOTEL_MIN_PRICE = 3000;
-const HOUSE_MIN_PRICE = 5000;
-const PALACE_MIN_PRICE = 10000;
 
 const titleInput = document.querySelector('#title');
 const priceInput = document.querySelector('#price');
@@ -70,28 +67,12 @@ roomNumberSelect.addEventListener('change', () => {
 });
 
 const checkTypeOfHouses = () => {
-  if (typeSelect.value === 'bungalow') {
-    priceInput.setAttribute('min', BUNGALOW_MIN_PRICE);
-    priceInput.setAttribute('placeholder', BUNGALOW_MIN_PRICE);
-    priceInput.setCustomValidity(`Цена не может быть меньше ${BUNGALOW_MIN_PRICE}.`);
-  } else if (typeSelect.value === 'flat') {
-    priceInput.setAttribute('min', FLAT_MIN_PRICE);
-    priceInput.setAttribute('placeholder', FLAT_MIN_PRICE);
-    priceInput.setCustomValidity(`Цена не может быть меньше ${FLAT_MIN_PRICE}.`);
-  } else if (typeSelect.value === 'hotel') {
-    priceInput.setAttribute('min', HOTEL_MIN_PRICE);
-    priceInput.setAttribute('placeholder', HOTEL_MIN_PRICE);
-    priceInput.setCustomValidity(`Цена не может быть меньше ${HOTEL_MIN_PRICE}.`);
-  } else if (typeSelect.value === 'house') {
-    priceInput.setAttribute('min', HOUSE_MIN_PRICE);
-    priceInput.setAttribute('placeholder', HOUSE_MIN_PRICE);
-    priceInput.setCustomValidity(`Цена не может быть меньше ${HOUSE_MIN_PRICE}.`);
-  } else if (typeSelect.value === 'palace') {
-    priceInput.setAttribute('min', PALACE_MIN_PRICE);
-    priceInput.setAttribute('placeholder', PALACE_MIN_PRICE);
-    priceInput.setCustomValidity(`Цена не может быть меньше ${PALACE_MIN_PRICE}.`);
-  }
+  priceInput.setAttribute('min', TYPES[typeSelect.value].minPrice);
+  priceInput.setAttribute('placeholder', TYPES[typeSelect.value].minPrice);
+  priceInput.setCustomValidity(`Цена не может быть меньше ${TYPES[typeSelect.value].minPrice}.`);
 };
+
+checkTypeOfHouses();
 
 typeSelect.addEventListener('change', () => {
   checkTypeOfHouses();
@@ -102,7 +83,7 @@ typeSelect.addEventListener('change', () => {
 const changeSelectValue = (primarySelect, secondarySelect) => {
   for (let i = 0; i < primarySelect.options.length; i++) {
     if (primarySelect.options[i].selected) {
-      secondarySelect.options[i].selected = true;
+      secondarySelect.value = primarySelect.value;
     }
   }
 };

@@ -6,6 +6,10 @@ const DEFAULT_COORDINATES = {
   lat: 35.68911,
   lng: 139.69211,
 };
+const PRIMARY_ICON_SIZE = [52, 52];
+const PRIMARY_ICON_ANCHOR = [26, 52];
+const SECONDARY_ICON_SIZE = [40, 40];
+const SECONDARY_ICON_ANCHOR = [20, 40];
 const ADVERT_COUNT = 10;
 const addressInput = document.querySelector('#address');
 
@@ -28,8 +32,8 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: PRIMARY_ICON_SIZE,
+  iconAnchor: PRIMARY_ICON_ANCHOR,
 });
 
 const mainPinMarker = L.marker(
@@ -58,8 +62,8 @@ similarOffers.forEach(({author, offer, location}) => {
 
   const icon = L.icon({
     iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: SECONDARY_ICON_SIZE,
+    iconAnchor: SECONDARY_ICON_ANCHOR,
   });
 
   const marker = L.marker(

@@ -1,6 +1,6 @@
 import {generateOffers, TYPES} from './mock.js';
 
-const ADVERT_COUNT = 1;
+const ADVERT_COUNT = 10;
 
 const mapCanvasElement = document.querySelector('#map-canvas');
 const similarOfferTemplate = document.querySelector('#card')

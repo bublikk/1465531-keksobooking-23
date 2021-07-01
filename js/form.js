@@ -28,4 +28,4 @@ const activatePage = () => {
   mapFeatures.forEach((mapFeature) => mapFeature.removeAttribute('disabled'));
 };
 
-activatePage();
+export {activatePage};

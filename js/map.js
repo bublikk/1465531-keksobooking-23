@@ -55,16 +55,16 @@ mainPinMarker.on('moveend', (evt) => {
   addressInput.value = `${latitude}, ${longitude}`;
 });
 
+const icon = L.icon({
+  iconUrl: 'img/pin.svg',
+  iconSize: SECONDARY_ICON_SIZE,
+  iconAnchor: SECONDARY_ICON_ANCHOR,
+});
+
 const similarOffers = generateOffers(ADVERT_COUNT);
 
 similarOffers.forEach(({author, offer, location}) => {
   const {lat, lng} = location;
-
-  const icon = L.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: SECONDARY_ICON_SIZE,
-    iconAnchor: SECONDARY_ICON_ANCHOR,
-  });
 
   const marker = L.marker(
     {

@@ -1,5 +1,4 @@
 import {activatePage} from './form.js';
-import {generateOffers} from './mock.js';
 import {createCustomPopup} from './popup.js';
 
 const DEFAULT_COORDINATES = {
@@ -10,7 +9,6 @@ const PRIMARY_ICON_SIZE = [52, 52];
 const PRIMARY_ICON_ANCHOR = [26, 52];
 const SECONDARY_ICON_SIZE = [40, 40];
 const SECONDARY_ICON_ANCHOR = [20, 40];
-const ADVERT_COUNT = 10;
 const addressInput = document.querySelector('#address');
 
 const map = L.map('map-canvas')
@@ -61,24 +59,26 @@ const icon = L.icon({
   iconAnchor: SECONDARY_ICON_ANCHOR,
 });
 
-const similarOffers = generateOffers(ADVERT_COUNT);
+const renderSimilarList = (similarOffers) => {
+  similarOffers.forEach(({author, offer, location}) => {
+    const {lat, lng} = location;
 
-similarOffers.forEach(({author, offer, location}) => {
-  const {lat, lng} = location;
-
-  const marker = L.marker(
-    {
-      lat,
-      lng,
-    },
-    {
-      icon,
-    },
-  );
-
-  marker
-    .addTo(map)
-    .bindPopup(
-      createCustomPopup({author, offer, location}),
+    const marker = L.marker(
+      {
+        lat,
+        lng,
+      },
+      {
+        icon,
+      },
     );
-});
+
+    marker
+      .addTo(map)
+      .bindPopup(
+        createCustomPopup({author, offer, location}),
+      );
+  });
+};
+
+export {renderSimilarList};

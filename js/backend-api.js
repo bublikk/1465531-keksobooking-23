@@ -1,6 +1,6 @@
 import {renderSimilarList} from './map.js';
 
-const SIMILAR_OFFER_COUNT = 10;
+const SIMILAR_OFFER_COUNT = 4;
 
 fetch('https://23.javascript.pages.academy/keksobooking/data')
   .then((response) => response.json())

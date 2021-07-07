@@ -53,31 +53,37 @@ mainPinMarker.on('moveend', (evt) => {
   addressInput.value = `${latitude}, ${longitude}`;
 });
 
+const markerGroup = L.layerGroup().addTo(map);
+
 const icon = L.icon({
   iconUrl: 'img/pin.svg',
   iconSize: SECONDARY_ICON_SIZE,
   iconAnchor: SECONDARY_ICON_ANCHOR,
 });
 
-const renderSimilarList = (similarOffers) => {
-  similarOffers.forEach(({author, offer, location}) => {
-    const {lat, lng} = location;
+const createMarker = ({author, offer, location}) => {
+  const {lat, lng} = location;
 
-    const marker = L.marker(
-      {
-        lat,
-        lng,
-      },
-      {
-        icon,
-      },
+  const marker = L.marker(
+    {
+      lat,
+      lng,
+    },
+    {
+      icon,
+    },
+  );
+
+  marker
+    .addTo(markerGroup)
+    .bindPopup(
+      createCustomPopup({author, offer, location}),
     );
+};
 
-    marker
-      .addTo(map)
-      .bindPopup(
-        createCustomPopup({author, offer, location}),
-      );
+const renderSimilarList = (similarOffers) => {
+  similarOffers.forEach((similarOffer) => {
+    createMarker(similarOffer);
   });
 };
 

@@ -13,6 +13,7 @@ const typeSelect = document.querySelector('#type');
 const timeinSelect = document.querySelector('#timein');
 const timeoutSelect = document.querySelector('#timeout');
 
+
 titleInput.addEventListener('input', () => {
   const titleValueLength = titleInput.value.length;
 

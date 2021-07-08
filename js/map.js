@@ -9,7 +9,11 @@ const PRIMARY_ICON_SIZE = [52, 52];
 const PRIMARY_ICON_ANCHOR = [26, 52];
 const SECONDARY_ICON_SIZE = [40, 40];
 const SECONDARY_ICON_ANCHOR = [20, 40];
+
 const addressInput = document.querySelector('#address');
+const offerForm = document.querySelector('.ad-form');
+const filterForm = document.querySelector('.map__filters');
+const resetButton = document.querySelector('.ad-form__reset');
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -87,4 +91,25 @@ const renderSimilarList = (similarOffers) => {
   });
 };
 
-export {renderSimilarList};
+const resetForm = () => {
+  offerForm.reset();
+  filterForm.reset();
+
+  map
+    .setView({
+      lat: DEFAULT_COORDINATES.lat,
+      lng: DEFAULT_COORDINATES.lng,
+    }, 13);
+  mainPinMarker.setLatLng({
+    lat: DEFAULT_COORDINATES.lat,
+    lng: DEFAULT_COORDINATES.lng,
+  });
+};
+
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+
+  resetForm();
+});
+
+export {renderSimilarList, resetForm};

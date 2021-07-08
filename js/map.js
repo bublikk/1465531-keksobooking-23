@@ -100,10 +100,12 @@ const resetForm = () => {
       lat: DEFAULT_COORDINATES.lat,
       lng: DEFAULT_COORDINATES.lng,
     }, 13);
-  mainPinMarker.setLatLng({
-    lat: DEFAULT_COORDINATES.lat,
-    lng: DEFAULT_COORDINATES.lng,
-  });
+
+  mainPinMarker
+    .setLatLng({
+      lat: DEFAULT_COORDINATES.lat,
+      lng: DEFAULT_COORDINATES.lng,
+    });
 };
 
 resetButton.addEventListener('click', (evt) => {

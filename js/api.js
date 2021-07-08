@@ -4,7 +4,7 @@ const SIMILAR_OFFER_COUNT = 10;
 const ALERT_SHOW_TIME = 5000;
 
 const offerForm = document.querySelector('.ad-form');
-const main = document.querySelector('main');
+const body = document.querySelector('body');
 
 const showFatal = (message) => {
   const alertContainer = document.createElement('div');
@@ -33,28 +33,38 @@ const renderPopupMessage = (messageType) => {
   const messageElement = messageTemplate.cloneNode(true);
   messageFragment.appendChild(messageElement);
 
-  main.appendChild(messageFragment);
+  body.appendChild(messageFragment);
 
-  document.addEventListener('keydown', (evt) => {
+  const handleKeydown = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
       messageElement.remove();
+      document.removeEventListener('keydown', handleKeydown);
     }
-  });
+  };
 
-  messageElement.addEventListener('click', (evt) => {
+  document.addEventListener('keydown', handleKeydown);
+
+  const handleDocumentClick = (evt) => {
     if (messageElement.contains(evt.target)) {
       evt.preventDefault();
       messageElement.remove();
+      document.removeEventListener('click', handleDocumentClick);
     }
-  });
+  };
+
+  document.addEventListener('click', handleDocumentClick);
 
   if (messageType === 'error') {
     const errorButton = document.querySelector('.error__button');
-    errorButton.addEventListener('click', (evt) => {
+
+    const handleButtonClick = (evt) => {
       evt.preventDefault();
       messageElement.remove();
-    });
+      errorButton.removeEventListener('click', handleButtonClick);
+    };
+
+    errorButton.addEventListener('click', handleButtonClick);
   }
 };
 

@@ -77,7 +77,7 @@ const getData = () => {
 
 getData();
 
-const setUserFormSubmit = (onSuccess) => {
+const sendData = (onSuccess) => {
   offerForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -105,4 +105,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-setUserFormSubmit(resetForm);
+sendData(resetForm);

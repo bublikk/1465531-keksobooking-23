@@ -94,6 +94,8 @@ const renderSimilarList = (similarOffers) => {
 const resetForm = () => {
   offerForm.reset();
   filterForm.reset();
+  document.querySelector('#price').placeholder = 1000;
+  addressInput.value = `${DEFAULT_COORDINATES.lat}, ${DEFAULT_COORDINATES.lng}`;
 
   map
     .setView({

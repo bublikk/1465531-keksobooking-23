@@ -1,4 +1,4 @@
-import {activatePage, resetForm} from './form.js';
+import {activatePage} from './form.js';
 import {createCustomPopup} from './popup.js';
 
 const DEFAULT_COORDINATES = {
@@ -11,7 +11,6 @@ const SECONDARY_ICON_SIZE = [40, 40];
 const SECONDARY_ICON_ANCHOR = [20, 40];
 
 const addressInput = document.querySelector('#address');
-const resetButton = document.querySelector('.ad-form__reset');
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -102,11 +101,5 @@ const resetMap = () => {
       lng: DEFAULT_COORDINATES.lng,
     });
 };
-
-resetButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-
-  resetForm();
-});
 
 export {DEFAULT_COORDINATES, renderSimilarList, resetMap};

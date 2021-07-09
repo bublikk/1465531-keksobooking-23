@@ -7,6 +7,7 @@ const mapForm = document.querySelector('.map__filters');
 const mapFilters = document.querySelectorAll('.map__filter');
 const mapFeatures = document.querySelectorAll('.map__feature');
 const addressInput = document.querySelector('#address');
+const resetButton = document.querySelector('.ad-form__reset');
 
 const deactivatePage = () => {
   offerForm.classList.add('ad-form--disabled');
@@ -43,5 +44,11 @@ const resetForm = () => {
 
   resetMap();
 };
+
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+
+  resetForm();
+});
 
 export {activatePage, resetForm};

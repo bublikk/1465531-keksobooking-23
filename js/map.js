@@ -95,6 +95,7 @@ const resetForm = () => {
   offerForm.reset();
   filterForm.reset();
   document.querySelector('#price').placeholder = 1000;
+  document.querySelector('#price').min = 0;
   addressInput.value = `${DEFAULT_COORDINATES.lat}, ${DEFAULT_COORDINATES.lng}`;
 
   map

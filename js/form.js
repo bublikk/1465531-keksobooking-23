@@ -1,8 +1,12 @@
+import {DEFAULT_COORDINATES, resetMap} from './map.js';
+
 const offerForm = document.querySelector('.ad-form');
+const filterForm = document.querySelector('.map__filters');
 const formFieldsets = offerForm.querySelectorAll('fieldset');
 const mapForm = document.querySelector('.map__filters');
 const mapFilters = document.querySelectorAll('.map__filter');
 const mapFeatures = document.querySelectorAll('.map__feature');
+const addressInput = document.querySelector('#address');
 
 const deactivatePage = () => {
   offerForm.classList.add('ad-form--disabled');
@@ -28,4 +32,16 @@ const activatePage = () => {
   mapFeatures.forEach((mapFeature) => mapFeature.removeAttribute('disabled'));
 };
 
-export {activatePage};
+const resetForm = () => {
+  offerForm.reset();
+  filterForm.reset();
+
+  document.querySelector('#price').placeholder = 1000;
+  document.querySelector('#price').min = 0;
+
+  addressInput.value = `${DEFAULT_COORDINATES.lat}, ${DEFAULT_COORDINATES.lng}`;
+
+  resetMap();
+};
+
+export {activatePage, resetForm};

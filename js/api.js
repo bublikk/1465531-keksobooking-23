@@ -1,4 +1,5 @@
-import {renderSimilarList, resetForm} from './map.js';
+import {renderSimilarList} from './map.js';
+import {resetForm} from './form.js';
 
 const SIMILAR_OFFER_COUNT = 10;
 const ALERT_SHOW_TIME = 5000;

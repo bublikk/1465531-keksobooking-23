@@ -1,5 +1,4 @@
 import {activatePage} from './form.js';
-import {generateOffers} from './mock.js';
 import {createCustomPopup} from './popup.js';
 
 const DEFAULT_COORDINATES = {
@@ -10,8 +9,11 @@ const PRIMARY_ICON_SIZE = [52, 52];
 const PRIMARY_ICON_ANCHOR = [26, 52];
 const SECONDARY_ICON_SIZE = [40, 40];
 const SECONDARY_ICON_ANCHOR = [20, 40];
-const ADVERT_COUNT = 10;
+
 const addressInput = document.querySelector('#address');
+const offerForm = document.querySelector('.ad-form');
+const filterForm = document.querySelector('.map__filters');
+const resetButton = document.querySelector('.ad-form__reset');
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -55,15 +57,15 @@ mainPinMarker.on('moveend', (evt) => {
   addressInput.value = `${latitude}, ${longitude}`;
 });
 
+const markerGroup = L.layerGroup().addTo(map);
+
 const icon = L.icon({
   iconUrl: 'img/pin.svg',
   iconSize: SECONDARY_ICON_SIZE,
   iconAnchor: SECONDARY_ICON_ANCHOR,
 });
 
-const similarOffers = generateOffers(ADVERT_COUNT);
-
-similarOffers.forEach(({author, offer, location}) => {
+const createMarker = ({author, offer, location}) => {
   const {lat, lng} = location;
 
   const marker = L.marker(
@@ -77,8 +79,41 @@ similarOffers.forEach(({author, offer, location}) => {
   );
 
   marker
-    .addTo(map)
+    .addTo(markerGroup)
     .bindPopup(
       createCustomPopup({author, offer, location}),
     );
+};
+
+const renderSimilarList = (similarOffers) => {
+  similarOffers.forEach((similarOffer) => {
+    createMarker(similarOffer);
+  });
+};
+
+const resetForm = () => {
+  offerForm.reset();
+  filterForm.reset();
+  document.querySelector('#price').placeholder = 1000;
+  addressInput.value = `${DEFAULT_COORDINATES.lat}, ${DEFAULT_COORDINATES.lng}`;
+
+  map
+    .setView({
+      lat: DEFAULT_COORDINATES.lat,
+      lng: DEFAULT_COORDINATES.lng,
+    }, 13);
+
+  mainPinMarker
+    .setLatLng({
+      lat: DEFAULT_COORDINATES.lat,
+      lng: DEFAULT_COORDINATES.lng,
+    });
+};
+
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+
+  resetForm();
 });
+
+export {renderSimilarList, resetForm};

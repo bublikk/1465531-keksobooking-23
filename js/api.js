@@ -1,7 +1,6 @@
 import {renderSimilarList} from './map.js';
 import {resetForm} from './form.js';
 
-const SIMILAR_OFFER_COUNT = 10;
 const ALERT_SHOW_TIME = 5000;
 
 const offerForm = document.querySelector('.ad-form');
@@ -79,7 +78,7 @@ const getData = () => {
     })
     .then((response) => response.json())
     .then((offers) => {
-      renderSimilarList(offers.slice(0, SIMILAR_OFFER_COUNT));
+      renderSimilarList(offers);
     })
     .catch((error) => {
       showFatal(error);

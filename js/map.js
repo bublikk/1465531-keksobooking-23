@@ -9,6 +9,7 @@ const PRIMARY_ICON_SIZE = [52, 52];
 const PRIMARY_ICON_ANCHOR = [26, 52];
 const SECONDARY_ICON_SIZE = [40, 40];
 const SECONDARY_ICON_ANCHOR = [20, 40];
+// const SIMILAR_OFFER_COUNT = 10;
 
 const addressInput = document.querySelector('#address');
 

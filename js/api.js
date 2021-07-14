@@ -1,10 +1,15 @@
 import {renderSimilarList} from './map.js';
 import {resetForm} from './form.js';
+import {debounce} from './debounce.js';
+import {removeMarkers} from './map.js';
+import {filter} from './filter.js';
 
 const ALERT_SHOW_TIME = 5000;
+const RENDER_DELAY = 500;
 
 const offerForm = document.querySelector('.ad-form');
 const body = document.querySelector('body');
+const mapForm = document.querySelector('.map__filters');
 
 const showFatal = (message) => {
   const alertContainer = document.createElement('div');
@@ -78,7 +83,13 @@ const getData = () => {
     })
     .then((response) => response.json())
     .then((offers) => {
-      renderSimilarList(offers);
+      renderSimilarList(filter(offers));
+      mapForm.addEventListener('change', () => {
+        (debounce(() => {
+          removeMarkers();
+          renderSimilarList(filter(offers));
+        }, RENDER_DELAY))();
+      });
     })
     .catch((error) => {
       showFatal(error);

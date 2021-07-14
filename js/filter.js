@@ -1,24 +1,25 @@
-const typeFilter = document.querySelector('[name="housing-type"]');
-const priceFilter = document.querySelector('[name="housing-price"]');
-const roomsFilter = document.querySelector('[name="housing-rooms"]');
-const guestsFilter = document.querySelector('[name="housing-guests"]');
+const housingTypeSelect = document.querySelector('#housing-type');
+const housingRoomSelect = document.querySelector('#housing-rooms');
+const housingPriceSelect = document.querySelector('#housing-price');
 
+const filterByPrice = (item) => {
+  switch (housingPriceSelect.value) {
+    case 'middle':
+      return item.offer.price >= 10000 && item.offer.price <= 50000;
 
-const handleMessage = (select) => {
-  for (let i = 0; i < select.options.length; i++) {
-    if (select.options[i].selected) {
-      select.options[i].setAttribute('selected', 'selected');
-    }
+    case 'low':
+      return item.offer.price < 10000;
 
-    if (!select.options[i].selected) {
-      select.options[i].removeAttribute('selected');
-    }
+    case 'high':
+      return item.offer.price > 50000;
+
+    default:
+      return true;
   }
 };
 
-typeFilter.addEventListener('change', () => handleMessage(typeFilter));
-priceFilter.addEventListener('change', () => handleMessage(priceFilter));
-roomsFilter.addEventListener('change', () => handleMessage(roomsFilter));
-guestsFilter.addEventListener('change', () => handleMessage(guestsFilter));
+const filter = (data) => data.filter((item) => (housingTypeSelect.value === 'any' || item.offer.type === housingTypeSelect.value)
+  && (housingRoomSelect.value === 'any' || item.offer.rooms === +housingRoomSelect.value)
+  && filterByPrice(item));
 
-export {handleMessage};
+export {filter};

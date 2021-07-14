@@ -9,7 +9,7 @@ const PRIMARY_ICON_SIZE = [52, 52];
 const PRIMARY_ICON_ANCHOR = [26, 52];
 const SECONDARY_ICON_SIZE = [40, 40];
 const SECONDARY_ICON_ANCHOR = [20, 40];
-// const SIMILAR_OFFER_COUNT = 10;
+const SIMILAR_OFFER_COUNT = 10;
 
 const addressInput = document.querySelector('#address');
 
@@ -55,8 +55,6 @@ mainPinMarker.on('moveend', (evt) => {
   addressInput.value = `${latitude}, ${longitude}`;
 });
 
-const markerGroup = L.layerGroup().addTo(map);
-
 const icon = L.icon({
   iconUrl: 'img/pin.svg',
   iconSize: SECONDARY_ICON_SIZE,
@@ -77,16 +75,18 @@ const createMarker = ({author, offer, location}) => {
   );
 
   marker
-    .addTo(markerGroup)
+    .addTo(map)
     .bindPopup(
       createCustomPopup({author, offer, location}),
     );
 };
 
 const renderSimilarList = (similarOffers) => {
-  similarOffers.forEach((similarOffer) => {
-    createMarker(similarOffer);
-  });
+  similarOffers
+    .slice(0, SIMILAR_OFFER_COUNT)
+    .forEach((similarOffer) => {
+      createMarker(similarOffer);
+    });
 };
 
 const resetMap = () => {
@@ -103,4 +103,12 @@ const resetMap = () => {
     });
 };
 
-export {DEFAULT_COORDINATES, renderSimilarList, resetMap};
+const removeMarkers = () => {
+  map.eachLayer((marker) => {
+    if (marker instanceof L.Marker && marker !== mainPinMarker) {
+      marker.remove();
+    }
+  });
+};
+
+export {DEFAULT_COORDINATES, renderSimilarList, resetMap, removeMarkers};

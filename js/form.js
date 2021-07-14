@@ -1,5 +1,4 @@
 import {DEFAULT_COORDINATES, resetMap} from './map.js';
-// import {handleMessage} from './filter.js';
 
 const offerForm = document.querySelector('.ad-form');
 const formFieldsets = offerForm.querySelectorAll('fieldset');

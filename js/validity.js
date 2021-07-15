@@ -1,4 +1,4 @@
-import {TYPES} from './mock.js';
+import {TYPES} from './popup.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;

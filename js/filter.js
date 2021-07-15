@@ -1,15 +1,9 @@
-const houseFilter = document.querySelector('#housing-type');
-const roomFilter = document.querySelector('#housing-rooms');
-const priceFilter = document.querySelector('#housing-price');
-const guestFilter = document.querySelector('#housing-guests');
-
-const wifiFilter = document.querySelector('#filter-wifi');
-const dishwasherFilter = document.querySelector('#filter-dishwasher');
-const parkingFilter = document.querySelector('#filter-parking');
-const washerFilter = document.querySelector('#filter-washer');
-const elevatorFilter = document.querySelector('#filter-elevator');
-const conditionerFilter = document.querySelector('#filter-conditioner');
-
+const mapForm = document.querySelector('.map__filters');
+const houseFilter = mapForm.querySelector('#housing-type');
+const roomFilter = mapForm.querySelector('#housing-rooms');
+const priceFilter = mapForm.querySelector('#housing-price');
+const guestFilter = mapForm.querySelector('#housing-guests');
+const featuresFilter = mapForm.querySelector('#housing-features');
 
 const filterByPrice = (item) => {
   switch (priceFilter.value) {
@@ -27,47 +21,16 @@ const filterByPrice = (item) => {
   }
 };
 
-const getFeaturesRank = (item) => {
-  let rank = 0;
-
-  if (item.offer.features !== undefined) {
-    if (item.offer.features.includes(wifiFilter.value)) {
-      rank += 1;
-    }
-    if (item.offer.features.includes(dishwasherFilter.value)) {
-      rank += 1;
-    }
-    if (item.offer.features.includes(parkingFilter.value)) {
-      rank += 1;
-    }
-    if (item.offer.features.includes(washerFilter.value)) {
-      rank += 1;
-    }
-    if (item.offer.features.includes(elevatorFilter.value)) {
-      rank += 1;
-    }
-    if (item.offer.features.includes(conditionerFilter.value)) {
-      rank += 1;
-    }
-  }
-
-  return rank;
-};
-
-const compareByFeaturesRank = (itemA, itemB) => {
-  const rankA = getFeaturesRank(itemA);
-  const rankB = getFeaturesRank(itemB);
-
-  return rankB - rankA;
+const filterByFeatures = (item) => {
+  const selectedFeatures = [].map.call(featuresFilter.querySelectorAll('input:checked'), (input) => input.value);
+  return selectedFeatures.every((feature) => item.offer.features !== undefined ? item.offer.features.includes(feature) : false);
 };
 
 const filter = (data) =>
-  data
-    .slice()
-    .sort(compareByFeaturesRank)
-    .filter((item) => (houseFilter.value === 'any' || item.offer.type === houseFilter.value)
+  data.filter((item) => (houseFilter.value === 'any' || item.offer.type === houseFilter.value)
     && (roomFilter.value === 'any' || item.offer.rooms === +roomFilter.value)
     && filterByPrice(item)
-    && (guestFilter.value === 'any' || item.offer.guests === +guestFilter.value));
+    && (guestFilter.value === 'any' || item.offer.guests === +guestFilter.value)
+    && filterByFeatures(item));
 
 export {filter};

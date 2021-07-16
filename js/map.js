@@ -104,11 +104,12 @@ const resetMap = () => {
 };
 
 const removeMarkers = () => {
-  map.eachLayer((marker) => {
-    if (marker instanceof L.Marker && marker !== mainPinMarker) {
-      marker.remove();
-    }
-  });
+  map
+    .eachLayer((marker) => {
+      if (marker instanceof L.Marker && marker !== mainPinMarker) {
+        marker.remove();
+      }
+    });
 };
 
 export {DEFAULT_COORDINATES, renderSimilarList, resetMap, removeMarkers};

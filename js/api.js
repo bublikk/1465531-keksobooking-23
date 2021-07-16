@@ -10,6 +10,9 @@ const RENDER_DELAY = 500;
 const offerForm = document.querySelector('.ad-form');
 const body = document.querySelector('body');
 const mapForm = document.querySelector('.map__filters');
+const resetButton = document.querySelector('.ad-form__reset');
+
+let data = null;
 
 const showFatal = (message) => {
   const alertContainer = document.createElement('div');
@@ -43,6 +46,7 @@ const renderPopupMessage = (messageType) => {
   const handleKeydown = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
+
       messageElement.remove();
       document.removeEventListener('keydown', handleKeydown);
     }
@@ -53,6 +57,7 @@ const renderPopupMessage = (messageType) => {
   const handleDocumentClick = (evt) => {
     if (messageElement.contains(evt.target)) {
       evt.preventDefault();
+
       messageElement.remove();
       document.removeEventListener('click', handleDocumentClick);
     }
@@ -65,6 +70,7 @@ const renderPopupMessage = (messageType) => {
 
     const handleButtonClick = (evt) => {
       evt.preventDefault();
+
       messageElement.remove();
       errorButton.removeEventListener('click', handleButtonClick);
     };
@@ -83,12 +89,20 @@ const getData = () => {
     })
     .then((response) => response.json())
     .then((offers) => {
+      data = offers;
       renderSimilarList(filter(offers));
       mapForm.addEventListener('change', () => {
         (debounce(() => {
           removeMarkers();
           renderSimilarList(filter(offers));
         }, RENDER_DELAY))();
+      });
+      resetButton.addEventListener('click', (evt) => {
+        evt.preventDefault();
+
+        resetForm();
+        removeMarkers();
+        renderSimilarList(filter(offers));
       });
     })
     .catch((error) => {
@@ -115,6 +129,7 @@ const sendData = (onSuccess) => {
         if (response.ok) {
           onSuccess();
           resetForm();
+          renderSimilarList(filter(data));
           renderPopupMessage('success');
         } else {
           renderPopupMessage('error');

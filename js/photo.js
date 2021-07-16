@@ -28,6 +28,7 @@ avatarChooser.addEventListener('change', () => {
 photoChooser.addEventListener('change', () => {
   const img = document.createElement('img');
   const photoPreview = document.querySelector('.ad-form__photo').appendChild(img);
+
   img.style.width = '100%';
   img.style.height = '100%';
   img.alt = 'Фотография жилья';

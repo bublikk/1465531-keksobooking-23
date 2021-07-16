@@ -6,7 +6,6 @@ const mapForm = document.querySelector('.map__filters');
 const mapFilters = document.querySelectorAll('.map__filter');
 const mapFeatures = document.querySelectorAll('.map__feature');
 const addressInput = document.querySelector('#address');
-const resetButton = document.querySelector('.ad-form__reset');
 const avatarPreview = document.querySelector('.ad-form-header__preview img');
 const photoPreview = document.querySelector('.ad-form__photo');
 
@@ -15,9 +14,7 @@ const deactivatePage = () => {
   mapForm.classList.add('map__filters--disabled');
 
   formFieldsets.forEach((formFieldset) => formFieldset.setAttribute('disabled', 'disabled'));
-
   mapFilters.forEach((mapFilter) => mapFilter.setAttribute('disabled', 'disabled'));
-
   mapFeatures.forEach((mapFeature) => mapFeature.setAttribute('disabled', 'disabled'));
 };
 
@@ -28,9 +25,7 @@ const activatePage = () => {
   mapForm.classList.remove('map__filters--disabled');
 
   formFieldsets.forEach((formFieldset) => formFieldset.removeAttribute('disabled'));
-
   mapFilters.forEach((mapFilter) => mapFilter.removeAttribute('disabled'));
-
   mapFeatures.forEach((mapFeature) => mapFeature.removeAttribute('disabled'));
 };
 
@@ -39,7 +34,7 @@ const resetForm = () => {
   mapForm.reset();
 
   document.querySelector('#price').placeholder = 1000;
-  document.querySelector('#price').min = 0;
+  document.querySelector('#price').min = 1000;
 
   avatarPreview.src = 'img/muffin-grey.svg';
 
@@ -51,11 +46,5 @@ const resetForm = () => {
 
   resetMap();
 };
-
-resetButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-
-  resetForm();
-});
 
 export {activatePage, resetForm};

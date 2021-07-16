@@ -27,20 +27,6 @@ titleInput.addEventListener('input', () => {
   titleInput.reportValidity();
 });
 
-const checkPrice = () => {
-  if (priceInput.value < priceInput.min) {
-    priceInput.setCustomValidity(`Цена не может быть меньше ${priceInput.min}.`);
-  } else if (priceInput.value > MAX_PRICE) {
-    priceInput.setCustomValidity(`Цена не должна превышать ${MAX_PRICE}.`);
-  } else {
-    priceInput.setCustomValidity('');
-  }
-
-  priceInput.reportValidity();
-};
-
-priceInput.addEventListener('input', checkPrice);
-
 const checkValidCapacity = () => {
   if (roomNumberSelect.options[0].selected && !capacitySelect.options[2].selected) {
     capacitySelect.setCustomValidity('Следует выбрать «для 1 гостя»');
@@ -79,6 +65,20 @@ typeSelect.addEventListener('change', () => {
 
   typeSelect.reportValidity();
 });
+
+const checkPrice = () => {
+  if (priceInput.value < priceInput.min) {
+    priceInput.setCustomValidity(`Цена не может быть меньше ${priceInput.min}.`);
+  } else if (priceInput.value > MAX_PRICE) {
+    priceInput.setCustomValidity(`Цена не должна превышать ${MAX_PRICE}.`);
+  } else {
+    priceInput.setCustomValidity('');
+  }
+
+  priceInput.reportValidity();
+};
+
+priceInput.addEventListener('input', checkPrice);
 
 const changeSelectValue = (primarySelect, secondarySelect) => {
   secondarySelect.value = primarySelect.value;

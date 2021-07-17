@@ -1,3 +1,4 @@
+import {getData} from './api.js';
 import {activatePage} from './form.js';
 import {createCustomPopup} from './popup.js';
 
@@ -16,6 +17,7 @@ const addressInput = document.querySelector('#address');
 const map = L.map('map-canvas')
   .on('load', () => {
     activatePage();
+    getData();
     addressInput.value = `${DEFAULT_COORDINATES.lat}, ${DEFAULT_COORDINATES.lng}`;
   })
   .setView({

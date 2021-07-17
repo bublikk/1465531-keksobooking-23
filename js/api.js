@@ -1,5 +1,5 @@
 import {renderSimilarList} from './map.js';
-import {resetForm} from './form.js';
+import {activateMapFilters, resetForm} from './form.js';
 import {debounce} from './debounce.js';
 import {removeMarkers} from './map.js';
 import {filter} from './filter.js';
@@ -104,13 +104,12 @@ const getData = () => {
         removeMarkers();
         renderSimilarList(filter(offers));
       });
+      activateMapFilters();
     })
     .catch((error) => {
       showFatal(error);
     });
 };
-
-getData();
 
 const sendData = (onSuccess) => {
   offerForm.addEventListener('submit', (evt) => {
@@ -142,3 +141,5 @@ const sendData = (onSuccess) => {
 };
 
 sendData(resetForm);
+
+export {getData};

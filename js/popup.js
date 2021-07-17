@@ -41,7 +41,7 @@ const createCustomPopup = ({author, offer}) => {
     : offerElement.querySelector('.popup__text--address').classList.add('hidden');
 
   price
-    ? offerElement.querySelector('.popup__text--price').innerHTML = `${price} <span>₽/ночь</span>`
+    ? offerElement.querySelector('.popup__text--price').textContent = `${price} ₽/ночь`
     : offerElement.querySelector('.popup__text--price').classList.add('hidden');
 
   type

@@ -22,9 +22,13 @@ deactivatePage();
 
 const activatePage = () => {
   offerForm.classList.remove('ad-form--disabled');
-  mapForm.classList.remove('map__filters--disabled');
 
   formFieldsets.forEach((formFieldset) => formFieldset.removeAttribute('disabled'));
+};
+
+const activateMapFilters = () => {
+  mapForm.classList.remove('map__filters--disabled');
+
   mapFilters.forEach((mapFilter) => mapFilter.removeAttribute('disabled'));
   mapFeatures.forEach((mapFeature) => mapFeature.removeAttribute('disabled'));
 };
@@ -47,4 +51,4 @@ const resetForm = () => {
   resetMap();
 };
 
-export {activatePage, resetForm};
+export {activatePage, activateMapFilters, resetForm};

@@ -1,3 +1,6 @@
+const HOUSE_PRICE_MIN = 10000;
+const HOUSE_PRICE_MAX = 50000;
+
 const mapForm = document.querySelector('.map__filters');
 const houseFilter = mapForm.querySelector('#housing-type');
 const roomFilter = mapForm.querySelector('#housing-rooms');
@@ -8,13 +11,13 @@ const featuresFilter = mapForm.querySelector('#housing-features');
 const filterByPrice = (item) => {
   switch (priceFilter.value) {
     case 'middle':
-      return item.offer.price >= 10000 && item.offer.price <= 50000;
+      return item.offer.price >= HOUSE_PRICE_MIN && item.offer.price <= HOUSE_PRICE_MAX;
 
     case 'low':
-      return item.offer.price < 10000;
+      return item.offer.price < HOUSE_PRICE_MIN;
 
     case 'high':
-      return item.offer.price > 50000;
+      return item.offer.price > HOUSE_PRICE_MAX;
 
     default:
       return true;
